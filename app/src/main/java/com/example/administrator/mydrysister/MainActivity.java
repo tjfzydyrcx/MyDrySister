@@ -1,5 +1,7 @@
 package com.example.administrator.mydrysister;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +10,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button showBtn;
@@ -20,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private PictureLoader loader;
     private SisterApi sisterApi;
     private SisterTask sisterTask;
+    private DownLoadUtils loadUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +61,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (curPos > 9) {
                         curPos = 0;
                     }
-                    loader.load(showImg, data.get(curPos).getUrl());
+                    loadUtils = new DownLoadUtils();
+                    loadUtils.downLoadImage(data.get(curPos).getUrl()).observeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<byte[]>() {
+                        @Override
+                        public void call(byte[] bytes) {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            showImg.setImageBitmap(bitmap);
+                        }
+                    });
+
+                    // loader.load(showImg, data.get(curPos).getUrl());
                     curPos++;
                 }
                 break;
