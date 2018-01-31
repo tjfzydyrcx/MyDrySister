@@ -17,9 +17,17 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="妹子"
+        android:text="下一个妹子"
         android:id="@+id/btn_show"
+        android:layout_marginBottom="118dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="118dp" />
+        android:layout_toEndOf="@+id/btn_refresh" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="换一批"
+        android:id="@+id/btn_refresh"
+        android:layout_alignTop="@+id/btn_show"
+        android:layout_toStartOf="@+id/img_show" />
 </RelativeLayout>
