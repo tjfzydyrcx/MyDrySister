@@ -11,6 +11,9 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
+import rx.Observable;
+import rx.Observer;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -27,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SisterApi sisterApi;
     private SisterTask sisterTask;
     private DownLoadUtils loadUtils;
-
+    Subscription subscribe;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,14 +65,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         curPos = 0;
                     }
                     loadUtils = new DownLoadUtils();
-                    loadUtils.downLoadImage(data.get(curPos).getUrl()).observeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<byte[]>() {
-                        @Override
-                        public void call(byte[] bytes) {
-                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                            showImg.setImageBitmap(bitmap);
-                        }
-                    });
 
+                    subscribe = loadUtils.downLoadImage(data.get(curPos).getUrl()).observeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<byte[]>() {
+                                @Override
+                                public void call(byte[] bytes) {
+                                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                    showImg.setImageBitmap(bitmap);
+                                }
+                            });
                     // loader.load(showImg, data.get(curPos).getUrl());
                     curPos++;
                 }
@@ -114,5 +118,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onDestroy() {
         super.onDestroy();
         sisterTask.cancel(true);
+        if (subscribe.isUnsubscribed()){
+            subscribe.unsubscribe();
+        }
+
     }
 }
