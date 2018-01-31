@@ -5,29 +5,55 @@
     android:layout_height="match_parent"
     tools:context="com.example.administrator.mydrysister.MainActivity">
 
-
+<!--
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/img_show"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="下一个妹子"
-        android:id="@+id/btn_show"
-        android:layout_marginBottom="118dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/btn_refresh" />
+        android:layout_marginTop="20dp" />-->
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="换一批"
         android:id="@+id/btn_refresh"
-        android:layout_alignTop="@+id/btn_show"
-        android:layout_toStartOf="@+id/img_show" />
+        android:layout_marginBottom="87dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="41dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="下一个妹子"
+        android:id="@+id/btn_show"
+        android:layout_alignTop="@+id/btn_refresh"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="36dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:id="@+id/img_show"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <!--  <Button
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="下一个妹子"
+          android:id="@+id/btn_show"
+          android:layout_marginBottom="118dp"
+          android:layout_alignParentBottom="true"
+          android:layout_toEndOf="@+id/btn_refresh" />
+
+      <Button
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="换一批"
+          android:id="@+id/btn_refresh"
+          android:layout_alignTop="@+id/btn_show"
+          android:layout_toStartOf="@+id/img_show" />-->
 </RelativeLayout>
